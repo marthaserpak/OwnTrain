@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "511325835533",
+    "firebase_url": "https://owntrain.firebaseio.com",
+    "project_id": "owntrain",
+    "storage_bucket": "owntrain.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:511325835533:android:1b4161c9124675ca17a044",
+        "android_client_info": {
+          "package_name": "com.example.owntrain"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "511325835533-sqdk7c3fscc8i0q8j9ahlc9endin62et.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.owntrain",
+            "certificate_hash": "67720254fc5497947dc438648db205bd31afb390"
+          }
+        },
+        {
+          "client_id": "511325835533-ufjofci0fcntldheschps076jopv87lf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDt4V-IblXusAznMfxGVPcrx9p8Zg4YAOE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "511325835533-ufjofci0fcntldheschps076jopv87lf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
