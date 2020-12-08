@@ -15,8 +15,8 @@
 
         <EditText
             android:id="@+id/login_email"
-            android:background="@drawable/bg_ed_txt_bord"
             style="@style/login_input"
+            android:background="@drawable/bg_ed_txt_bord"
             android:hint="@string/email"
             android:inputType="textWebEmailAddress"
             app:layout_constraintBottom_toBottomOf="parent"

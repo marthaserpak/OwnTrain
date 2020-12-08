@@ -7,4 +7,5 @@
     <string name="next">Next</string>
     <string name="fullName">Full Name</string>
     <string name="register">Register</string>
+    <string name="personal_profile">Personal Profile</string>
 </resources>

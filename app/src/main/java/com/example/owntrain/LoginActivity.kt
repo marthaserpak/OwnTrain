@@ -5,14 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.View.GONE
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_login.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
@@ -26,7 +20,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, KeyboardVisibil
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        Log.d("TAG", "onCreate")
+        Log.d(TAG, "onCreate")
 
         KeyboardVisibilityEvent.setEventListener(this, this)
         mAuth = FirebaseAuth.getInstance()
@@ -64,7 +58,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, KeyboardVisibil
 
     override fun onVisibilityChanged(isOpen: Boolean) {
         if (isOpen) {
-            signUp_text.visibility = GONE
+            signUp_text.visibility = View.GONE
         } else {
             signUp_text.visibility = View.VISIBLE
         }

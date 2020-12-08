@@ -2,7 +2,7 @@
 <inset android:insetLeft="1dp" android:insetRight="1dp" android:insetBottom="1dp"
     android:insetTop="1dp" xmlns:android="http://schemas.android.com/apk/res/android">
     <shape >
-        <stroke android:color="@color/purple_700" android:width="0.6dp"/>
+        <stroke android:color="#EB3700B3" android:width="1dp"/>
         <corners android:radius="40dp" />
     </shape>
 </inset>
