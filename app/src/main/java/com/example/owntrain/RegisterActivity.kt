@@ -10,13 +10,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.owntrain.models.User
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.email_fragment.*
 import kotlinx.android.synthetic.main.register_fragment.*
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 
 class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, RegisterFragment.Listener {
+    /*KeyboardVisibilityEventListener*/
 
     private var mEmail: String? = null
     private lateinit var mAuth: FirebaseAuth
@@ -35,7 +40,6 @@ class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, RegisterFr
                 .commit()
         }
 
-
         mAuth = FirebaseAuth.getInstance()
         mDatabase = FirebaseDatabase.getInstance().reference
 
@@ -45,7 +49,7 @@ class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, RegisterFr
         if (email.isNotEmpty()) {
             mEmail = email
             mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener {
-                if (it.isSuccessful){
+                if (it.isSuccessful) {
                     if (it.result?.signInMethods?.isEmpty() != false) {
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.register_container, RegisterFragment())
@@ -56,7 +60,7 @@ class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, RegisterFr
                     }
                 } else {
                     Log.e(TAG, "Error: ${it.exception.toString()}")
-                    showToast("Error: ${it.exception.toString()}")
+                    showToast("${it.exception.toString()}")
                 }
             }
         } else {
@@ -78,13 +82,11 @@ class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, RegisterFr
                                     startActivity(Intent(this, HomeActivity::class.java))
                                     finish()
                                 } else {
-                                    Log.e(TAG, "Failed to create user, ${it.exception.toString()}")
-                                    showToast("Something wrong happen, try again.")
+                                    unKnownRegisterError(it)
                                 }
                             }
                         } else {
-                            Log.e(TAG, "Error to create user, ${it.exception.toString()}")
-                            showToast("Something wrong happen, try again.")
+                            unKnownRegisterError(it)
                         }
                     }
             } else {
@@ -103,6 +105,11 @@ class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, RegisterFr
         val username = mkUsername(fullName)
         return User(fullName, username = username, email = email)
     }
+
+    private fun unKnownRegisterError(it: Task<*>) {
+        Log.e(TAG, "Failed to create user, ${it.exception.toString()}")
+        showToast("Something wrong happen, try again.")
+    }
 }
 
 
@@ -110,6 +117,7 @@ class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, RegisterFr
 class EmailFragment : Fragment() {
 
     private lateinit var mListener: Listener
+
 
     //ВСЕГДА ИМПЛЕМЕНТИРУЮТСЯ!!!!!!!!!
     interface Listener {
@@ -124,6 +132,7 @@ class EmailFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        coordinateBtnAndInputs(register_nxt_btn, register_email)
         register_nxt_btn.setOnClickListener {
             val email = register_email.text.toString()
             mListener.onNext(email)
@@ -156,6 +165,7 @@ class RegisterFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        coordinateBtnAndInputs(btn_register, fullName_register, password_register)
         btn_register.setOnClickListener {
             val fullName = fullName_register.text.toString()
             val password = password_register.text.toString()

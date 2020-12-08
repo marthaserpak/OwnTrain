@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.activity_login.view.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 
-class KeyboardAwareVisibilityEvent(context: Context, attrs: AttributeSet) :
+class KeyboardAwareScrollViewVisibilityEvent(context: Context, attrs: AttributeSet) :
     ScrollView(context, attrs), KeyboardVisibilityEventListener {
     init {
         /** определяет должен ли ScrollView растягивать своё содержимое для заполнения области просмотра */
@@ -26,9 +26,9 @@ class KeyboardAwareVisibilityEvent(context: Context, attrs: AttributeSet) :
 
     override fun onVisibilityChanged(isOpen: Boolean) {
         if (isOpen) {
-            scrollView.scrollTo(0, scrollView.bottom)
+            scrollTo(0, scrollView.bottom)
         } else {
-            scrollView.scrollTo(0, scrollView.top)
+            scrollTo(0, scrollView.top)
         }
     }
 }
