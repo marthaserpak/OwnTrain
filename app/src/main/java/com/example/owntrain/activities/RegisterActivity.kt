@@ -1,4 +1,4 @@
-package com.example.owntrain
+package com.example.owntrain.activities
 
 import android.content.Context
 import android.content.Intent
@@ -9,16 +9,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.owntrain.R
+import com.example.owntrain.activities.HomeActivity
+import com.example.owntrain.coordinateBtnAndInputs
 import com.example.owntrain.models.User
+import com.example.owntrain.showToast
+import com.example.owntrain.validate
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.email_fragment.*
 import kotlinx.android.synthetic.main.register_fragment.*
-import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
-import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 
 class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, RegisterFragment.Listener {
     /*KeyboardVisibilityEventListener*/

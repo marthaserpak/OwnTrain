@@ -1,4 +1,4 @@
-package com.example.owntrain
+package com.example.owntrain.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.example.owntrain.R
+import com.example.owntrain.coordinateBtnAndInputs
+import com.example.owntrain.showToast
+import com.example.owntrain.validate
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
@@ -22,14 +26,23 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, KeyboardVisibil
         setContentView(R.layout.activity_login)
         Log.d(TAG, "onCreate")
 
-        KeyboardVisibilityEvent.setEventListener(this, this)
-        mAuth = FirebaseAuth.getInstance()
 
+        KeyboardVisibilityEvent.setEventListener(this, this)
+        coordinateBtnAndInputs(login_btn, login_email, login_password)
+        mAuth = FirebaseAuth.getInstance()
 
         login_btn.setOnClickListener(this)
         signUp_text.setOnClickListener(this)
-        coordinateBtnAndInputs(login_btn, login_email, login_password)
 
+
+    }
+
+    override fun onVisibilityChanged(isOpen: Boolean) {
+        if (isOpen) {
+            signUp_text.visibility = View.GONE
+        } else {
+            signUp_text.visibility = View.VISIBLE
+        }
     }
 
     override fun onClick(v: View) {
@@ -41,13 +54,16 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, KeyboardVisibil
                     mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                         if (it.isSuccessful) {
                             startActivity(Intent(this, HomeActivity::class.java))
+                            finish()
                         } else {
                             showToast("Please, enter an existing user")
                         }
                     }
                 } else {
-                    Toast.makeText(this, "Please, enter \nemail and password.",
-                        Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this, "Please, enter \nemail and password.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
             R.id.signUp_text -> {
@@ -56,14 +72,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, KeyboardVisibil
         }
     }
 
-    override fun onVisibilityChanged(isOpen: Boolean) {
-        if (isOpen) {
-            signUp_text.visibility = View.GONE
-        } else {
-            signUp_text.visibility = View.VISIBLE
+    override fun onStart() {
+        super.onStart()
+        if(mAuth.currentUser != null) {
+            startActivity(Intent(this, HomeActivity::class.java))
+            finish()
         }
     }
-
-
 }
 
